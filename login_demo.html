@@ -1,0 +1,225 @@
+<!--
+  login-demo.html
+  Propósito: Página de login de DEMONSTRAÇÃO (fingir / mock).
+  NÃO colete senhas nem use este arquivo para phishing.
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - FluxZK Client (DEMO)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent: #25b7f2;
+      --dark: #0f0f0f;
+      --muted: #9a9a9a;
+      --rounded: 12px;
+      --container: 420px;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Open Sans',sans-serif;
+      background:linear-gradient(180deg,#070707 0%, #0f0f12 100%);
+      color:#eaeaea;
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;
+    }
+
+    /* page shell */
+    .wrap{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center}
+
+    /* mock left panel with GIF-like background */
+    .showcase{
+      border-radius:18px;padding:28px;height:520px;position:relative;overflow:hidden;
+      background:linear-gradient(180deg, rgba(37,183,242,0.06), rgba(0,0,0,0.06));
+      box-shadow:0 10px 40px rgba(0,0,0,0.6);
+      display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+    }
+    .showcase h1{font-family:'Montserrat',sans-serif;font-size:32px;margin-bottom:8px;color:#fff}
+    .showcase p{color:var(--muted);max-width:520px}
+    .bg-fake{
+      position:absolute;inset:0;background-image:url('Mountain Goat Trailer GIF by Xbox.gif');
+      background-size:cover;background-position:center;filter:blur(6px)brightness(.35);opacity:.75;
+    }
+    .showcase .card{position:relative;background:rgba(10,10,10,0.5);padding:18px;border-radius:14px;margin-top:18px;backdrop-filter:blur(6px)}
+
+    /* login container */
+    .login-container{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:26px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.6);
+    }
+    .logo{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .logo img{width:56px;height:56px;border-radius:10px;object-fit:cover}
+    .logo h2{font-family:'Montserrat',sans-serif;font-size:20px}
+
+    .ms-btn{
+      width:100%;padding:12px 14px;border-radius:12px;border:none;font-weight:700;
+      display:inline-flex;align-items:center;gap:10px;cursor:pointer;justify-content:center
+    }
+    .ms-btn .ms-icon{width:18px;height:18px;display:inline-block;border-radius:3px;background:linear-gradient(45deg,#2F80ED,#1B64C1)}
+    .ms-btn.ms-blue{background:linear-gradient(90deg,#2F80ED,#1967D2);color:#fff}
+    .ms-btn:hover{transform:translateY(-3px);transition:all .18s ease}
+
+    .or{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--muted);font-size:13px}
+    .or::before,.or::after{content:'';height:1px;background:rgba(255,255,255,0.04);flex:1}
+
+    input[type=email], input[type=password]{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:var(--glass);color:#fff;margin-bottom:12px;font-size:14px}
+    .password-wrapper{position:relative}
+    .toggle-password{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--muted);user-select:none}
+    label.remember{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin:8px 0}
+
+    .login-btn{width:100%;padding:12px;border-radius:12px;border:none;background:var(--accent);color:#052a33;font-weight:800;cursor:pointer;font-size:15px}
+    .login-btn:active{transform:scale(.995)}
+
+    .info{font-size:13px;color:var(--muted);margin-top:12px}
+
+    .cloud-success{display:none;align-items:center;gap:10px;padding:10px;border-radius:10px;background:linear-gradient(90deg, rgba(37,183,242,0.08), rgba(37,183,242,0.03));color:#eaf6fb;margin-top:10px}
+    .cloud-success .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+    /* fake modal for microsoft oauth */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:50}
+    .modal .sheet{width:420px;background:#0b0b0b;border-radius:12px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    .modal .sheet h3{font-family:'Montserrat',sans-serif;margin-bottom:8px}
+    .modal .sheet p{color:var(--muted);font-size:14px;margin-bottom:12px}
+    .modal .options{display:flex;flex-direction:column;gap:10px}
+    .modal .option{padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);cursor:pointer}
+
+    /* responsive */
+    @media (max-width:900px){.wrap{grid-template-columns:1fr;max-width:520px}.showcase{order:2;height:240px}.login-container{order:1}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="showcase" aria-hidden="true">
+      <div class="bg-fake"></div>
+      <h1>FluxZK Client</h1>
+      <p>Este é um mockup de tela de login para fins visuais — totalmente falso. Use apenas para design/testes locais e NUNCA para coletar dados de usuários reais.</p>
+      <div class="card">
+        <strong>Demo:</strong> botão Microsoft simulado, efeito Cloudflare "Sucesso" e GIF de fundo.
+      </div>
+    </div>
+
+    <div class="login-container" role="main">
+      <div class="logo">
+        <img src="bc029176-2e1e-4dd6-a1c1-0101302eab3e.png" alt="FluxZK Logo" onerror="this.style.filter='grayscale(1)';this.alt='Logo'">
+        <h2>Login to FluxZK</h2>
+      </div>
+
+      <button class="ms-btn ms-blue" id="msBtn" aria-haspopup="dialog">
+        <span class="ms-icon" aria-hidden="true"></span>
+        Sign up / Login with Microsoft
+      </button>
+
+      <div class="or">OR</div>
+
+      <input type="email" id="email" placeholder="Email (demo)" autocomplete="off">
+      <div class="password-wrapper">
+        <input type="password" id="password" placeholder="Password (demo)" autocomplete="off">
+        <span class="toggle-password" id="togglePw">👁️</span>
+      </div>
+
+      <a href="#" style="float:right;color:var(--accent);font-size:13px;text-decoration:none;margin-bottom:8px">Forgot password?</a>
+
+      <div class="cloud-success" id="cloudSuccess">
+        <div class="dot" aria-hidden="true"></div>
+        <div><strong>Sucesso!</strong> Cloudflare Turnstile (simulado)</div>
+      </div>
+
+      <label class="remember"><input type="checkbox" id="remember"> Remember Me</label>
+
+      <button class="login-btn" id="loginBtn">Login (demo)</button>
+
+      <div class="info">Este formulário é apenas para fins visuais. Nada é enviado para servidores externos.</div>
+    </div>
+  </div>
+
+  <!-- fake modal simulating OAuth choice -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="sheet" role="document">
+      <h3>Simular fluxo Microsoft</h3>
+      <p>Escolha uma conta para simular o retorno da autenticação (NÃO realiza login real).</p>
+      <div class="options">
+        <div class="option" data-user="user1@example.com">user1@example.com — Continuar</div>
+        <div class="option" data-user="player@xbox.com">player@xbox.com — Continuar</div>
+        <div class="option" id="cancelOpt" style="text-align:center;color:var(--muted)">Cancelar</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password text
+    const pw = document.getElementById('password');
+    const toggle = document.getElementById('togglePw');
+    toggle.addEventListener('click', () => {
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+      toggle.textContent = pw.type === 'password' ? '👁️' : '🙈';
+    });
+
+    // Simulate Cloudflare success when email looks like demo
+    const cloudSuccess = document.getElementById('cloudSuccess');
+    const emailEl = document.getElementById('email');
+    emailEl.addEventListener('input', () => {
+      // simple visual rule: show success when contains "demo" or "@xbox"
+      const v = emailEl.value.toLowerCase();
+      if(v.includes('demo') || v.includes('@xbox')){
+        cloudSuccess.style.display = 'flex';
+      } else {
+        cloudSuccess.style.display = 'none';
+      }
+    });
+
+    // Fake Microsoft modal
+    const msBtn = document.getElementById('msBtn');
+    const modal = document.getElementById('modal');
+    msBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+    });
+    document.querySelectorAll('.modal .option').forEach(opt => {
+      opt.addEventListener('click', (e)=>{
+        const user = opt.dataset.user || 'cancel';
+        if(user === 'cancel'){
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden','true');
+          return;
+        }
+        // simulate successful oauth flow: populate email and show cloud success
+        emailEl.value = user;
+        emailEl.dispatchEvent(new Event('input'));
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden','true');
+        // show a little toast
+        showToast('Conta selecionada: ' + user + ' (simulado)');
+      });
+    });
+
+    // Login button (demo) — no network
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.addEventListener('click', ()=>{
+      const e = emailEl.value.trim();
+      if(!e){
+        showToast('Preencha um email de demonstração.');
+        return;
+      }
+      showToast('Login simulado efetuado para ' + e);
+    });
+
+    // tiny toast util
+    function showToast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      Object.assign(t.style,{position:'fixed',bottom:'22px',left:'50%',transform:'translateX(-50%)',background:'rgba(0,0,0,0.7)',padding:'10px 14px',borderRadius:'10px',color:'#fff',zIndex:9999,boxShadow:'0 6px 20px rgba(0,0,0,0.6)'});
+      document.body.appendChild(t);
+      setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .4s';},1800);
+      setTimeout(()=>t.remove(),2600);
+    }
+
+    // Accessibility: close modal by Escape
+    document.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape'){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); } });
+  </script>
+</body>
+</html>
