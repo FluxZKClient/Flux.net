@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Client — Landing (Badlion-style)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent: #25b7f2;
+      --dark:#1f1f1f;
+      --muted:#9a9a9a;
+      --glass: rgba(255,255,255,0.06);
+      --rounded:18px;
+      --container:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Open Sans',sans-serif;color:#eee;background:#0f0f0f}
+
+    /* Header */
+    .topbar{position:fixed;left:0;right:0;top:0;z-index:40;height:72px;display:flex;align-items:center;padding:12px 30px;backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(10,10,10,0.6),rgba(10,10,10,0.3));border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#ffc857,#ff6b6b);display:flex;align-items:center;justify-content:center;font-weight:800;color:#222}
+    .nav{margin-left:28px;display:flex;gap:18px;align-items:center}
+    .nav a{color:rgba(255,255,255,0.9);text-decoration:none;font-weight:600}
+    .spacer{flex:1}
+    .login-btn{background:var(--accent);border-radius:8px;padding:10px 14px;color:#052a33;font-weight:700;text-decoration:none}
+
+    /* Hero */
+    .hero{height:560px;display:flex;align-items:center;justify-content:center;padding-top:72px;position:relative}
+    .bg-hero{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1526326761264-8a3d3a1b9db5?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&s=000');background-size:cover;background-position:center;filter:blur(3px) saturate(1.1);transform:scale(1.02)}
+    .bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.45),rgba(10,10,10,0.7))}
+    .hero-inner{position:relative;max-width:var(--container);width:100%;padding:60px 24px;display:flex;flex-direction:column;align-items:center;text-align:center}
+    .main-title{font-family:'Montserrat',sans-serif;font-size:56px;letter-spacing:1px;margin:0 0 12px 0;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,0.5)}
+    .subtitle{margin:0 0 28px 0;color:var(--muted);font-weight:600}
+    .download-btn{background:var(--accent);color:#052a33;padding:18px 36px;border-radius:10px;font-weight:800;text-decoration:none;box-shadow:0 8px 20px rgba(37,183,242,0.18);display:inline-block}
+
+    /* Feature cards row */
+    .features{display:flex;gap:22px;margin-top:36px;width:100%;justify-content:center}
+    .card{width:280px;border-radius:18px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.04)}
+    .card h4{margin:0 0 10px 0;font-size:16px;color:#fff;font-weight:800}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+
+    /* Middle 'panels' */
+    .panels{display:flex;gap:18px;max-width:var(--container);margin-top:28px;padding:0 24px;justify-content:center}
+    .panel{flex:1;min-height:220px;border-radius:20px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(6px);}
+    .panel h3{margin:0 0 14px 0;font-family:'Montserrat',sans-serif}
+    .icons-row{display:flex;flex-wrap:wrap;gap:12px}
+    .icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02);font-weight:700}
+
+    /* footer */
+    footer{background:#0f0f10;padding:64px 24px;margin-top:48px}
+    .footer-inner{max-width:var(--container);margin:0 auto;display:flex;gap:40px}
+    .col{flex:1}
+    .col h5{color:#fff;margin-bottom:14px;font-weight:800}
+    .col a{display:block;color:var(--muted);text-decoration:none;margin-bottom:8px}
+    .brand-footer{display:flex;gap:14px;align-items:center}
+    .brand-footer .logo{width:56px;height:56px;border-radius:12px}
+    .copyright{border-top:1px solid rgba(255,255,255,0.03);margin-top:28px;padding-top:20px;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .features{flex-direction:column;align-items:center}
+      .panels{flex-direction:column}
+      .main-title{font-size:40px}
+      .hero{height:520px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <div class="logo">YC</div>
+      <div style="font-weight:800">YOURCLIENT</div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#">Client</a>
+        <a href="#">Store</a>
+        <a href="#">Blog</a>
+        <a href="#">Skins</a>
+        <a href="#">Support</a>
+      </nav>
+    </div>
+
+    <div class="spacer"></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div style="padding:6px 10px;border-radius:10px;background:rgba(255,255,255,0.03);font-weight:700">Players Online: <span style="color:var(--accent)">43.7k</span></div>
+      <a class="login-btn" href="#">Login</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="bg-hero" aria-hidden="true"></div>
+      <div class="bg-overlay" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <h1 class="main-title">CLIENT</h1>
+        <p class="subtitle">THE MOST COMPLETE ALL-IN-ONE MOD LIBRARY WITH 100+ MODS, FPS IMPROVEMENTS, AND MORE</p>
+        <a class="download-btn" href="#">DOWNLOAD CLIENT</a>
+
+        <div class="features" role="list">
+          <div class="card" role="listitem">
+            <h4>MASSIVE FPS BOOST</h4>
+            <p>Performance tweaks and presets to increase frames per second dramatically.</p>
+          </div>
+          <div class="card">
+            <h4>100+ MODS</h4>
+            <p>Fully integrated mods and easy-to-use UI for configuration.</p>
+          </div>
+          <div class="card">
+            <h4>SUPPORTED VERSIONS</h4>
+            <p>Works with many Minecraft versions and configurations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:28px 12px;">
+      <div class="panels">
+        <div class="panel">
+          <h3>Massive Minecraft FPS Boost</h3>
+          <p style="color:var(--muted)">Presets, testing results, and configurations to get the best FPS possible.</p>
+          <div style="margin-top:18px;background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
+            <div style="height:10px;background:linear-gradient(90deg,var(--accent),#70e3ff);border-radius:8px;width:70%"></div>
+            <small style="color:var(--muted)">1600+ FPS - sample configuration</small>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>100+ Fully Integrated Mods</h3>
+          <div class="icons-row" style="margin-top:12px">
+            <div class="icon">A</div>
+            <div class="icon">B</div>
+            <div class="icon">C</div>
+            <div class="icon">D</div>
+            <div class="icon">E</div>
+            <div class="icon">F</div>
+            <div class="icon">G</div>
+            <div class="icon">H</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Supports Popular Versions</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px">
+            <div style="background:rgba(255,255,255,0.02);padding:10px 16px;border-radius:12px;font-weight:800">1.8</div>
+            <div style="background:rgba(255,255,255,0.02);padding:10px 16px;border-radius:12px;font-weight:800">1.21</div>
+            <div style="background:rgba(255,255,255,0.02);padding:10px 16px;border-radius:12px;font-weight:800">1.12</div>
+            <div style="background:rgba(255,255,255,0.02);padding:10px 16px;border-radius:12px;font-weight:800">1.19</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="col">
+        <h5>Client</h5>
+        <a href="#">Download</a>
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+        <a href="#">Register</a>
+      </div>
+      <div class="col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Jobs</a>
+        <a href="#">Rules</a>
+      </div>
+      <div class="col">
+        <h5>Websites</h5>
+        <a href="#">Client</a>
+        <a href="#">Store</a>
+        <a href="#">Forums</a>
+      </div>
+      <div class="col">
+        <h5>Legal</h5>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <div style="max-width:var(--container);margin:14px auto 0 auto;color:var(--muted)">© 2013-2025 YourCompany, LLC.</div>
+    </div>
+  </footer>
+
+  <script>
+    // small interaction: scroll to download when clicking button
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        window.location.hash = '#download';
+        // here you could trigger a real download or open a modal
+        alert('Simulated download — substitua este alerta por sua lógica.');
+      });
+    });
+  </script>
+</body>
+</html>
