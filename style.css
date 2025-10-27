@@ -183,19 +183,17 @@ body {
 
 /* Download Button */
 .download-btn {
-  background: var(--accent);
+  background: var(--accent); 
   color: #052a33;
-  padding: 18px 80px !important; /* aumenta horizontalmente */
-  border-radius: 12px;
-  font-weight: 800;
+  padding: 24px 64px; /* aumentei o padding */
+  font-size: 22px;     /* aumentei o tamanho da fonte */
+  border-radius: 12px; 
+  font-weight: 800; 
   text-decoration: none;
-  position: relative;
+  position: relative; 
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(37,183,242,0.3);
+  box-shadow: 0 0 20px rgba(37,183,242,0.4); 
   transition: all 0.4s ease;
-  display: inline-block;
-  min-width: 250px !important; /* garante largura mínima */
-  text-align: center;
 }
 
 .download-btn::before {
@@ -383,4 +381,5 @@ footer {
     font-size: 16px;
   }
 }
+
 
